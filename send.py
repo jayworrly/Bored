@@ -157,5 +157,18 @@ to_addr = ""  # Recipient address
 token_addr = ""  # Token contract address
 amount = '' # Amount of tokens to send
 
+# Loop 5 times to send tokens back and forth
+for i in range(5):
+    if i % 2 == 0:
+        # Send from from_addr to to_addr
+        print(f"\nTransaction {i+1}: Sending from {from_addr} to {to_addr}")
+        receipt = send_tokens(from_addr, priv_key, to_addr, amount, token_addr)
+        print(f"Transaction hash: {receipt['transactionHash'].hex()}")
+    else:
+        # Send from to_addr back to from_addr
+        print(f"\nTransaction {i+1}: Sending from {to_addr} to {from_addr}")
+        receipt = send_tokens(to_addr, priv_key, from_addr, amount, token_addr)
+        print(f"Transaction hash: {receipt['transactionHash'].hex()}")
+
 receipt = send_tokens(from_addr, priv_key, to_addr, amount, token_addr)
 print(f"Transaction hash: {receipt['transactionHash'].hex()}")
